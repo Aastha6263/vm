@@ -66,3 +66,10 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+.input {
+  @apply w-full mb-3 px-3 py-2 border rounded;
+}
+
+.btn-primary {
+  @apply w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700;
+}
