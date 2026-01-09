@@ -48,10 +48,10 @@ export default function Header() {
 
             <Link
               to="/login"
-              className="hidden md:inline-flex text-gray-600 hover:text-blue-600"
+              className="hidden md:inline-flex px-4 py-1.5 bg-blue-600 rounded-md text-sm text-gray-300 hover:text-gray-600"
               title="Login"
             >
-              <LogIn size={20} />
+              {/* <LogIn size={20} /> */}Login
             </Link>
 
             {/* MOBILE MENU BUTTON */}
@@ -92,22 +92,7 @@ export default function Header() {
                 </NavLink>
               ))}
 
-              <Link
-                to="/contact"
-                onClick={() => setOpen(false)}
-                className="mt-4 text-center py-2 rounded-md bg-blue-600 text-white"
-              >
-                Contact
-              </Link>
-
-              <Link
-                to="/login"
-                onClick={() => setOpen(false)}
-                className="mt-3 flex items-center justify-center gap-2 text-blue-600"
-              >
-                <LogIn size={18} />
-                Login
-              </Link>
+          
             </nav>
           </div>
         </div>

@@ -1,35 +1,193 @@
-import React from 'react'
+import { useState } from "react";
+import {
+  X,
+  Terminal,
+  Cloud,
+  Cpu,
+  Shield,
+  Brain,
+  Settings,
+  Database,
+} from "lucide-react";
 
-export default function Courses() {
+const services = [
+  {
+    id: 1,
+    title: "PowerShell Scripting & Automation",
+    description:
+      "Master Windows PowerShell and PowerShell Core with hands-on experience in scripting, task automation, system administration, and infrastructure management.",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/a/af/PowerShell_Core_6.0_icon.png",
+    courses: ["PowerShell Fundamentals"],
+    icon: <Terminal className="w-6 h-6 text-blue-600" />,
+  },
+  {
+    id: 2,
+    title: "Cloud Computing & Infrastructure",
+    description:
+      "Master AWS, Azure, and Google Cloud platforms with real-world cloud architecture, deployment, and management.",
+    image: "https://images.unsplash.com/photo-1581090700227-1e37b190418e",
+    courses: [
+      "AWS Solutions Architect",
+      "Azure Cloud Engineer",
+      "Google Cloud Professional",
+      "Cloud Security",
+      "DevOps on Cloud",
+    ],
+    icon: <Cloud className="w-6 h-6 text-sky-600" />,
+  },
+  {
+    id: 3,
+    title: "Generative AI & Automation",
+    description:
+      "Explore cutting-edge generative AI technologies, automation frameworks, and intelligent process optimization.",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995",
+    courses: ["Generative AI", "AI Automation", "Prompt Engineering"],
+    icon: <Cpu className="w-6 h-6 text-purple-600" />,
+  },
+  {
+    id: 4,
+    title: "Salesforce & CRM Platforms",
+    description:
+      "Complete Salesforce training covering Admin, Development, and CRM best practices.",
+    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7",
+    courses: ["Salesforce Admin", "Salesforce Development"],
+    icon: <Database className="w-6 h-6 text-blue-500" />,
+  },
+  {
+    id: 5,
+    title: "Cybersecurity & Information Protection",
+    description:
+      "Advanced cybersecurity training covering threat analysis, penetration testing, security protocols, and risk management.",
+    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c",
+    courses: ["Cybersecurity Fundamentals", "Ethical Hacking"],
+    icon: <Shield className="w-6 h-6 text-red-600" />,
+  },
+  {
+    id: 6,
+    title: "Artificial Intelligence & Machine Learning",
+    description:
+      "Dive into AI/ML algorithms, deep learning, neural networks, and practical implementations.",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995",
+    courses: ["Machine Learning", "Deep Learning", "AI with Python"],
+    icon: <Brain className="w-6 h-6 text-indigo-600" />,
+  },
+  {
+    id: 7,
+    title: "Digital IT Operations & DevOps",
+    description:
+      "Master DevOps practices, CI/CD pipelines, infrastructure as code, and modern IT operations.",
+    image: "https://images.unsplash.com/photo-1600267165753-1c5b49a1a4f3",
+    courses: ["DevOps Fundamentals", "CI/CD Pipelines"],
+    icon: <Settings className="w-6 h-6 text-gray-700" />,
+  },
+  {
+    id: 8,
+    title: "ServiceNow Solutions",
+    description:
+      "Become a ServiceNow expert with workflow automation, ITSM best practices, and platform customization.",
+    image: "https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc",
+    courses: ["ServiceNow ITSM", "ServiceNow Development"],
+    icon: <Settings className="w-6 h-6 text-green-600" />,
+  },
+];
+
+const Courses = () => {
+  const [selected, setSelected] = useState(null);
+
   return (
-    <div className="text-red">
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis corporis
-      illo doloribus excepturi numquam dicta atque? Sint, atque corrupti
-      voluptatem at laboriosam dignissimos nesciunt officia dolore ex hic
-      sapiente. Nesciunt facilis rerum est voluptatum incidunt expedita,
-      repellendus officiis minima, molestias fuga itaque, eum possimus quod
-      similique iste dolores nisi ipsum! Ratione, veniam eum quis reprehenderit
-      optio odit nam at quo officiis temporibus. Iusto soluta alias eos vero
-      blanditiis tempora fugiat enim dignissimos delectus officia rerum
-      voluptate cumque, necessitatibus sed debitis esse ipsum omnis tempore
-      earum, iste dolore? Beatae, voluptates corrupti! Libero quibusdam
-      blanditiis molestiae eius quidem ex repellat eaque. Minima odit asperiores
-      nostrum aperiam? Non fugit quod aliquid officiis aspernatur soluta illum
-      ipsum eveniet. Placeat debitis at omnis veniam corrupti? Debitis, sit
-      ipsum possimus officia dolor nostrum beatae ad esse pariatur quo ex atque
-      voluptatum soluta architecto maxime earum consectetur distinctio. Rem
-      provident nostrum voluptate possimus tempora, inventore voluptatibus
-      itaque beatae atque quaerat id sed incidunt quae voluptates explicabo?
-      Iste optio beatae harum doloremque, provident eum quis aperiam! Ducimus
-      delectus vero sint magni consectetur nihil unde adipisci, beatae officiis
-      aut, perferendis omnis facilis, atque debitis ea totam. Minus, et.
-      Delectus, explicabo laborum ut excepturi adipisci quia placeat architecto
-      possimus vel. Saepe hic illum numquam aliquam perferendis totam, tempora
-      architecto sequi quidem soluta, neque, libero voluptates tenetur. Eveniet,
-      excepturi adipisci nisi, totam quos accusamus similique at inventore
-      commodi dicta eos sapiente odio nesciunt illum corporis libero, expedita
-      aliquam blanditiis saepe ex id rerum repellendus? Neque officiis
-      aspernatur vel quidem dolorem error? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Alias a saepe ullam voluptate exercitationem distinctio, sit eligendi maxime dicta velit corrupti asperiores voluptatibus commodi quod corporis, illum mollitia doloremque eum dolorem numquam non quaerat? Modi, culpa laudantium. Reprehenderit, adipisci corrupti dolores perspiciatis culpa, optio assumenda similique sapiente aliquam ducimus rerum et facilis beatae facere rem hic perferendis quod omnis quidem, vero nostrum qui numquam. Officia reiciendis praesentium labore nesciunt neque quia dolor! Impedit delectus error quae repudiandae deleniti porro libero reprehenderit laboriosam quia itaque eos eum aut ullam voluptas beatae quam vel ducimus eaque quas ipsum, placeat amet molestias commodi! Quisquam ratione iusto ea nostrum deleniti error deserunt similique voluptatum nisi eveniet odit facilis enim corrupti, excepturi ex? Similique laudantium eius corrupti dignissimos quam impedit cum quia earum! Incidunt, ab. Possimus, itaque totam incidunt commodi ipsam impedit, porro fuga aperiam tempore modi animi officia veniam doloribus quae corporis? Recusandae eveniet, cum saepe est impedit, architecto ducimus a sint accusamus dolore laborum repellat maiores voluptate eius dolor. Magnam atque repudiandae dolor eum dolores distinctio nostrum? Voluptatem rerum eius aut modi error praesentium itaque quaerat consequuntur repellat ea! Quam earum cupiditate dolorem minima incidunt dignissimos a distinctio. Culpa necessitatibus explicabo labore amet vel velit soluta asperiores eius neque voluptatum quod corporis perferendis a quidem, laborum, aliquam eum! Reprehenderit id repellendus velit quo exercitationem et porro expedita amet mollitia fugit esse consectetur similique molestiae, facilis officia ab quod eius sapiente facere! Vel minus expedita, suscipit veritatis ducimus enim reprehenderit ipsum tenetur! Maiores placeat at illum autem quas nam! Ullam nam atque voluptatem eum ipsa perspiciatis, quis a ipsam dolor suscipit facere, cum ab, quos molestias obcaecati nobis dolore corrupti minus consequuntur adipisci quasi reprehenderit voluptates accusantium. Consequatur recusandae sequi eius beatae, commodi minus nesciunt ex a soluta aut optio ipsum aperiam debitis. Exercitationem libero quos inventore nam asperiores, sunt provident beatae, esse dolorum incidunt amet totam autem quasi ad. Voluptas adipisci facere tempore modi dicta cupiditate earum obcaecati dolorum rem provident. Sequi minus ipsam eos eius, doloremque deserunt est, velit reiciendis tenetur laudantium ea distinctio nulla ut accusantium sit, autem laborum aliquid fugit quam pariatur? Quaerat consectetur asperiores, tenetur esse repellendus autem quasi corporis obcaecati illo quisquam officia, culpa beatae! Voluptate fugiat esse architecto dignissimos quo libero sunt sed ut amet reprehenderit molestiae, repellat quis optio nulla ipsam unde sint tenetur quae. Natus provident tenetur illo veritatis nulla totam eveniet, soluta officiis! Quidem quibusdam repellat dolorem doloremque rerum, rem aspernatur numquam atque dolores? A voluptates sapiente saepe dolorem dignissimos similique culpa sequi voluptas rerum sint deleniti, nihil necessitatibus commodi minus nam tempore provident atque vitae facilis. Voluptate eveniet ea natus! Quia aperiam hic libero reiciendis aspernatur dicta enim eum natus provident, tempore architecto error ipsum sint deserunt est itaque, sed expedita explicabo voluptatem quas ratione atque doloremque, et nobis? Consectetur aliquid accusantium iste eaque provident asperiores ipsam, ad, sed distinctio ullam culpa soluta! Eos animi facere natus quo voluptates cupiditate perferendis totam ut porro hic ea voluptatibus corrupti, veritatis ratione, nostrum molestiae? Quidem temporibus quaerat beatae repudiandae doloremque illum fuga similique consectetur corporis. Delectus nobis ipsa animi odio, molestias iure numquam similique veniam tempora aliquam dolorum nostrum. Consequuntur repellat quia incidunt nemo quasi doloremque, fuga ea cumque delectus atque voluptate exercitationem molestiae asperiores dolore! Quos nemo deserunt ex, ipsum accusantium ut repellendus veniam qui doloremque. Explicabo consequuntur eos animi! Beatae, quae! Quae iusto amet quas ex dolores, eaque sunt omnis sequi aspernatur beatae ullam quidem repellat laborum itaque, cumque error! Cupiditate minus iusto quaerat quibusdam odit quam similique consequatur, maxime iure deleniti non!
-    </div>
+    <section className="max-w-7xl mx-auto px-4 py-16">
+      {/* Header */}
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold">Explore Services</h2>
+        <p className="text-gray-600 mt-3 max-w-3xl mx-auto">
+          Choose from comprehensive range of training programs to rapidly
+          accelerate your workforce skills
+        </p>
+      </div>
+
+      {/* 4x4 Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {services.map((item) => (
+          <div
+            key={item.id}
+            onClick={() => setSelected(item)}
+            className="bg-white rounded-xl shadow hover:shadow-xl transition cursor-pointer overflow-hidden"
+          >
+            <div className="relative">
+              <img
+                src={item.image}
+                alt={item.title}
+                className="h-44 w-full object-cover"
+              />
+              <div className="absolute top-4 left-4 bg-white p-2 rounded-full shadow">
+                {item.icon}
+              </div>
+            </div>
+
+            <div className="p-5">
+              <h3 className="font-semibold text-sm">{item.title}</h3>
+              <p className="text-xs text-gray-600 mt-2 line-clamp-3">
+                {item.description}
+              </p>
+              <div className="flex justify-between items-center mt-4">
+                <span className="text-blue-600 text-xs">
+                  {item.courses.length} Courses
+                </span>
+                <span className="text-gray-400">→</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Modal */}
+      {selected && (
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center px-4">
+          <div className="bg-white rounded-xl max-w-3xl w-full relative overflow-hidden">
+            <button
+              onClick={() => setSelected(null)}
+              className="absolute top-4 right-4 bg-white p-2 rounded-full shadow"
+            >
+              <X />
+            </button>
+
+            <img
+              src={selected.image}
+              alt={selected.title}
+              className="h-56 w-full object-cover"
+            />
+
+            <div className="p-6">
+              <h3 className="text-2xl font-bold">{selected.title}</h3>
+              <p className="text-gray-600 mt-2">{selected.description}</p>
+
+              <h4 className="mt-6 font-semibold">Available Courses</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+                {selected.courses.map((c, i) => (
+                  <div
+                    key={i}
+                    className="bg-gray-50 border rounded-lg p-3 text-sm"
+                  >
+                    ✔ {c}
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4 mt-6">
+                <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
+                  Explore Courses
+                </button>
+                <button className="border border-blue-600 text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50">
+                  Contact for Details
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
   );
-}
+};
+
+export default Courses;
