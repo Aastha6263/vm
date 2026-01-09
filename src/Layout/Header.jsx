@@ -12,6 +12,7 @@ export default function Header() {
     { to: "/services", label: "Services" },
     { to: "/careers", label: "Careers" },
     { to: "/about", label: "About Us" },
+    { to: "/contact", label: "Contact" },
   ];
 
   const navClass = ({ isActive }) =>
