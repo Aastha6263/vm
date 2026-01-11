@@ -5,16 +5,17 @@ import { useScroll } from '../context/ScrollContext';
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const { servicesRef, contactRef, scrollTo } = useScroll();
+  const { courseRef, careersRef, servicesRef, contactRef, scrollTo } =
+    useScroll();
   const navigate = useNavigate();
   const location = useLocation();
 
   const navItems = [
     { label: 'Home', to: '/' },
-    { label: 'Courses', to: '/courses' },
+    { label: 'Courses', scroll: 'courses' },
     { label: 'Industries', to: '/industries' },
-    { label: 'Services', scroll: 'services' }, // ✅ SCROLL ONLY
-    { label: 'Careers', to: '/careers' },
+    { label: 'Services', scroll: 'services' },
+    { label: 'Careers', scroll: 'careers' },
     { label: 'About Us', to: '/about' },
   ];
 
@@ -34,22 +35,34 @@ export default function Header() {
     }
   };
 
+  // 🔑 decide ref based on menu label
+  const getRef = (label) => {
+    if (label === 'Courses') return courseRef;
+    if (label === 'Careers') return careersRef;
+    if (label === 'Services') return servicesRef;
+    return null;
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-white border-b">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="w-full px-2">
         <div className="h-16 flex items-center gap-6">
           {/* LOGO */}
-          <Link to="/" className="text-blue-600 font-semibold">
-            VMSS TECHNOLOGIES
+          <Link to="/" className="flex items-center">
+            <img
+              src="/image/vmss.png"
+              alt="VMSS Technologies"
+              className="h-14 w-auto"
+            />
           </Link>
 
           {/* DESKTOP NAV */}
-          <nav className="hidden md:flex gap-6 ml-8">
+          <nav className="hidden md:flex gap-6 ml-6">
             {navItems.map((item) =>
               item.scroll ? (
                 <button
                   key={item.label}
-                  onClick={() => handleScroll(servicesRef)}
+                  onClick={() => handleScroll(getRef(item.label))}
                   className="text-sm font-medium text-gray-700 hover:text-blue-600"
                 >
                   {item.label}
@@ -64,7 +77,6 @@ export default function Header() {
 
           {/* RIGHT ACTIONS */}
           <div className="ml-auto flex items-center gap-4">
-            {/* CONTACT */}
             <button
               onClick={() => handleScroll(contactRef)}
               className="hidden md:inline-flex px-4 py-1.5 bg-blue-600 text-white rounded-md text-sm"
@@ -72,15 +84,13 @@ export default function Header() {
               Contact
             </button>
 
-            {/* LOGIN */}
             <Link
               to="/login"
-              className="hidden md:inline-flex px-4 py-1.5 bg-blue-600 rounded-md text-sm text-gray-300 hover:text-gray-600"
+              className="hidden md:inline-flex px-4 py-1.5 border border-blue-600 text-blue-600 rounded-md text-sm hover:bg-blue-50"
             >
               Login
             </Link>
 
-            {/* MOBILE MENU BTN */}
             <button onClick={() => setOpen(true)} className="md:hidden p-2">
               <Menu size={22} />
             </button>
@@ -97,10 +107,12 @@ export default function Header() {
           />
 
           <div className="absolute top-0 left-0 w-72 h-full bg-white p-6">
-            <div className="flex justify-between mb-6">
-              <span className="text-blue-600 font-semibold">
-                VMSS TECHNOLOGIES
-              </span>
+            <div className="flex justify-between items-center mb-6">
+              <img
+                src="/image/vmss.png"
+                alt="VMSS Technologies"
+                className="h-9 w-auto"
+              />
               <button onClick={() => setOpen(false)}>
                 <X size={20} />
               </button>
@@ -111,7 +123,7 @@ export default function Header() {
                 item.scroll ? (
                   <button
                     key={item.label}
-                    onClick={() => handleScroll(servicesRef)}
+                    onClick={() => handleScroll(getRef(item.label))}
                     className="text-left text-gray-700 font-medium"
                   >
                     {item.label}
@@ -121,7 +133,7 @@ export default function Header() {
                     key={item.to}
                     to={item.to}
                     onClick={() => setOpen(false)}
-                    className="text-gray-700"
+                    className="text-gray-700 font-medium"
                   >
                     {item.label}
                   </NavLink>

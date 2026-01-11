@@ -3,22 +3,23 @@ import React from 'react';
 export default function StaticBar() {
   return (
     <div
-      className="w-full bg-black text-white text-xs sm:text-sm"
+      className="w-full bg-black text-white text-xs sm:text-sm overflow-hidden"
       role="banner"
-      aria-label="Promotional message"
+      aria-label="VMSS Technologies announcement"
     >
-      <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-center">
-        <span
+      <div className="relative flex items-center h-8">
+        <div
           className="
-            tracking-wide 
-            select-none
-            animate-pulse
-            motion-reduce:animate-none
+            whitespace-nowrap
+            animate-marquee
+            tracking-wide
+            font-medium
           "
-          title="Motivational tagline"
         >
-          🚀 Code. Compile. Succeed.
-        </span>
+          🚀 Empowering Digital Innovation • AI • Cloud • Automation •
+          Cybersecurity &nbsp;&nbsp;&nbsp;&nbsp; 🚀 Empowering Digital
+          Innovation • AI • Cloud • Automation • Cybersecurity
+        </div>
       </div>
     </div>
   );

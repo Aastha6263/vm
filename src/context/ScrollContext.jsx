@@ -3,8 +3,11 @@ import { createContext, useContext, useRef } from 'react';
 const ScrollContext = createContext();
 
 export function ScrollProvider({ children }) {
-  const servicesRef = useRef(null);
-  const contactRef = useRef(null);
+  // ✅ Correct refs
+  const courseRef = useRef(null); // Course section
+  const careersRef = useRef(null);
+  const servicesRef = useRef(null); // Services section
+  const contactRef = useRef(null); // Contact section
 
   const scrollTo = (ref) => {
     ref?.current?.scrollIntoView({
@@ -14,7 +17,9 @@ export function ScrollProvider({ children }) {
   };
 
   return (
-    <ScrollContext.Provider value={{ servicesRef, contactRef, scrollTo }}>
+    <ScrollContext.Provider
+      value={{ courseRef, careersRef, servicesRef, contactRef, scrollTo }}
+    >
       {children}
     </ScrollContext.Provider>
   );

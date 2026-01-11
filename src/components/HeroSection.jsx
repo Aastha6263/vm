@@ -2,14 +2,6 @@ import { useState } from 'react';
 import TrainingFormModal from './TrainingFormModal';
 import { useNavigate } from 'react-router-dom';
 
-/**
- * HeroSection
- * - video background (put /public/video/tech.mp4) OR it will show fallback image
- * - center title + tagline
- * - centered search input styled like screenshot
- * - 3 highlighted options (click opens modal)
- */
-
 export default function HeroSection() {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
@@ -28,23 +20,19 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-[80vh]">
-      {/* VIDEO with fallback background color / image */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src="/video/tech.mp4" type="video/mp4" />
-      </video>
+      {/* IMAGE BACKGROUND */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/image/Home.png')" }}
+      />
 
       {/* overlay */}
       <div className="absolute inset-0 bg-black/65" />
 
       {/* content */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center text-white px-4 py-20">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold">
+        {/* TEXT (SAME SIZE + SAME STYLE + ANIMATION) */}
+        <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-widest animate-techGlow">
           VMSS TECHNOLOGIES
         </h1>
 
@@ -52,7 +40,7 @@ export default function HeroSection() {
           Empowering professionals with skills for the Future
         </p>
 
-        {/* SEARCH (centered and styled like screenshot) */}
+        {/* SEARCH */}
         <div className="mt-8 w-full max-w-xl">
           <div className="relative">
             <svg
@@ -79,17 +67,16 @@ export default function HeroSection() {
             </svg>
 
             <input
-              aria-label="Search training programs"
               className="w-full px-12 py-3 rounded-lg border border-gray-300 bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Search training programs..."
             />
           </div>
         </div>
 
-        {/* HORIZONTAL separator like screenshot */}
+        {/* separator */}
         <div className="w-full max-w-xl mt-8 border-t border-gray-300" />
 
-        {/* 3 options row */}
+        {/* options */}
         <div className="mt-6 w-full max-w-4xl px-2 md:px-6">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             {options.map((opt) => (
@@ -106,7 +93,8 @@ export default function HeroSection() {
             ))}
           </div>
 
-          {/* small CTA image / buttons block (screenshot shows a small image strip) */}
+          {/* CTA STRIP (COMMENTED CORRECTLY) */}
+          {/*
           <div className="mt-6">
             <div className="w-full max-w-2xl h-20 bg-gradient-to-r from-blue-600 to-transparent rounded-md flex items-center px-6">
               <button
@@ -121,6 +109,7 @@ export default function HeroSection() {
               </button>
             </div>
           </div>
+          */}
         </div>
       </div>
 
@@ -129,6 +118,35 @@ export default function HeroSection() {
         title={title}
         onClose={() => setOpen(false)}
       />
+
+      {/* ANIMATION CSS */}
+      <style>
+        {`
+          @keyframes techGlow {
+            0% {
+              transform: translateY(18px);
+              opacity: 0.7;
+              text-shadow: 0 0 4px rgba(255,255,255,0.4);
+            }
+            50% {
+              transform: translateY(0);
+              opacity: 1;
+              text-shadow:
+                0 0 8px rgba(255,255,255,0.9),
+                0 0 18px rgba(0,180,255,0.7);
+            }
+            100% {
+              transform: translateY(-10px);
+              opacity: 0.7;
+              text-shadow: 0 0 4px rgba(255,255,255,0.4);
+            }
+          }
+
+          .animate-techGlow {
+            animation: techGlow 3.5s ease-in-out infinite;
+          }
+        `}
+      </style>
     </section>
   );
 }

@@ -21,23 +21,24 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gradient-to-r from-blue-900 to-indigo-900 px-4">
-      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm">
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="w-full max-w-md p-8 border rounded-xl shadow-lg">
         {/* BRAND */}
-        <h1 className="text-center text-blue-600 font-bold text-lg mb-1">
+        <h1 className="text-center text-2xl font-extrabold text-blue-700 tracking-wider mb-1">
           VMSS TECHNOLOGIES
         </h1>
 
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
-          Login
-        </h2>
+        <p className="text-center text-sm text-gray-500 mb-6">
+          Secure Login Portal
+        </p>
 
         {/* EMAIL */}
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          type="email"
+          placeholder="Email address"
           className="w-full mb-4 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Email"
         />
 
         {/* PASSWORD */}
@@ -45,8 +46,8 @@ export default function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           type="password"
-          className="w-full mb-4 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Password"
+          className="w-full mb-6 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
         {/* LOGIN BUTTON */}
@@ -57,9 +58,8 @@ export default function Login() {
           Login
         </button>
 
-        {/* FOOTER */}
-        <p className="text-center text-sm text-gray-500 mt-4">
-          Secure login for VMSS users
+        <p className="text-center text-xs text-gray-400 mt-6">
+          © VMSS Technologies
         </p>
       </div>
     </div>
