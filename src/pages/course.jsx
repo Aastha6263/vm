@@ -155,7 +155,7 @@ const services = [
   {
     id: 19,
     title: 'Robotic Process Automation (RPA)',
-    image: '/image/rpa.png',
+    image: '/image/robotic.png',
     description: 'Automate business processes using RPA tools.',
     courses: ['RPA Fundamentals', 'UiPath'],
   },
