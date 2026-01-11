@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { instructors as instructorsData } from '../pages/data/instructorsData';
+import { instructors as instructorsData } from './data/instructorsData';
 import { Star, Headset, Plus, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 

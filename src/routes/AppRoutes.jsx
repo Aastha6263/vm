@@ -3,15 +3,9 @@ import { lazy, Suspense } from 'react';
 
 /* ================= LAZY IMPORTS ================= */
 const Home = lazy(() => import('../pages/Home'));
-//const Course = lazy(() => import('../pages/course'));
-const Instructors = lazy(() => import('../pages/Instructors'));
-const Testimonials = lazy(() => import('../pages/Testimonials'));
-//const Contact = lazy(() => import('../pages/contact'));
 const Login = lazy(() => import('../pages/Login'));
-//const Registration = lazy(() => import('../pages/Registration'));
 const SearchResults = lazy(() => import('../pages/SearchResults'));
-
-<Testimonials />;
+import CourseDetails from '../pages/CourseDetails';
 
 /* ================= LOADER ================= */
 const PageLoader = () => (
@@ -25,12 +19,8 @@ export default function AppRoutes() {
     <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* {<Route path="/course" element={<Course />} />} */}
-        <Route path="/instructors" element={<Instructors />} />
-        <Route path="/testimonials" element={<Testimonials />} />
-        {/* <Route path="/contact" element={<Contact />} /> */}
+        <Route path="/course/:courseName" element={<CourseDetails />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/register" element={<Registration />} /> */}
         <Route path="/search" element={<SearchResults />} />
       </Routes>
     </Suspense>

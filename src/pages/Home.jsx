@@ -2,17 +2,24 @@ import Header from '../Layout/Header';
 import Footer from '../Layout/Footer';
 import StaticBar from '../components/StaticBar';
 import HeroSection from '../components/HeroSection';
-import Course from './course';
-
-import Careers from './careers';
+//import Services from './Services';
 import Services from './Services';
+import Careers from './careers';
+import Whychoosevmm from './whychoosevmms.jsx';
 import Testimonials from './Testimonials';
 import Contact from './contact';
-import Instructors from './Instructors';
+import Industries from './Industries';
 import { useScroll } from '../context/ScrollContext';
 
 export default function Home() {
-  const { courseRef, careersRef, servicesRef, contactRef } = useScroll();
+  const {
+    // courseRef,
+    servicesRef,
+    careersRef,
+    industriesRef,
+    testimonialsRef,
+    contactRef,
+  } = useScroll();
 
   return (
     <>
@@ -20,21 +27,21 @@ export default function Home() {
       <StaticBar />
       <HeroSection />
 
-      <section ref={courseRef} className="scroll-mt-24">
-        <Course />
+      <section ref={servicesRef} className="scroll-mt-24">
+        <Services />
       </section>
 
       <section ref={careersRef} className="scroll-mt-24">
         <Careers />
       </section>
 
-      <Instructors />
-
-      <section ref={servicesRef} className="scroll-mt-24">
-        <Services />
+      <section ref={industriesRef} className="scroll-mt-24">
+        <Industries />
       </section>
-      <Testimonials />
-
+      <Whychoosevmm />
+      <section ref={testimonialsRef} className="scroll-mt-24">
+        <Testimonials />
+      </section>
       <section ref={contactRef} className="scroll-mt-24">
         <Contact />
       </section>

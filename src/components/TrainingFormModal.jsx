@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 
 export default function TrainingFormModal({ open, title, onClose }) {
   const formRef = useRef(null);
+
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -11,7 +13,9 @@ export default function TrainingFormModal({ open, title, onClose }) {
     country: '',
     message: '',
   });
+
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -20,15 +24,14 @@ export default function TrainingFormModal({ open, title, onClose }) {
         name: '',
         email: '',
         contact: '',
-        trainingType: '',
+        trainingType: title, // auto set from button
         city: '',
         country: '',
         message: '',
       });
-      // focus first input after open
       setTimeout(() => formRef.current?.querySelector('input')?.focus(), 80);
     }
-  }, [open]);
+  }, [open, title]);
 
   if (!open) return null;
 
@@ -42,29 +45,39 @@ export default function TrainingFormModal({ open, title, onClose }) {
     return errs;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errs = validate();
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
 
-    // demo success — replace this with API call
-    alert(
-      `Thank you! We received your request for "${title}".\nName: ${form.name}\nContact: ${form.contact}`
-    );
-    onClose();
+    try {
+      setLoading(true);
+
+      const res = await axios.post(
+        'http://localhost:5000/api/training/submit',
+        form
+      );
+
+      alert(res.data.message || 'Form submitted successfully!');
+      onClose();
+    } catch (error) {
+      alert(error.response?.data?.message || 'Something went wrong');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* overlay */}
+      {/* Overlay */}
       <div
         className="absolute inset-0 bg-black/50"
         onClick={onClose}
         aria-hidden
       />
 
-      {/* modal */}
+      {/* Modal */}
       <div className="relative bg-white rounded-lg w-full max-w-xl mx-4 shadow-xl z-10">
         <div className="p-6">
           <div className="flex items-start justify-between">
@@ -72,7 +85,6 @@ export default function TrainingFormModal({ open, title, onClose }) {
             <button
               onClick={onClose}
               className="text-gray-500 hover:text-gray-700"
-              aria-label="Close modal"
             >
               ✕
             </button>
@@ -83,6 +95,7 @@ export default function TrainingFormModal({ open, title, onClose }) {
             onSubmit={handleSubmit}
             className="mt-4 grid gap-3"
           >
+            {/* Name + Email */}
             <div className="grid sm:grid-cols-2 gap-3">
               <div>
                 <label className="text-sm font-medium">Name *</label>
@@ -95,7 +108,7 @@ export default function TrainingFormModal({ open, title, onClose }) {
                   placeholder="Your name"
                 />
                 {errors.name && (
-                  <p className="text-xs text-red-500 mt-1">{errors.name}</p>
+                  <p className="text-xs text-red-500">{errors.name}</p>
                 )}
               </div>
 
@@ -110,6 +123,7 @@ export default function TrainingFormModal({ open, title, onClose }) {
               </div>
             </div>
 
+            {/* Contact + TrainingType */}
             <div className="grid sm:grid-cols-2 gap-3">
               <div>
                 <label className="text-sm font-medium">Contact No *</label>
@@ -124,33 +138,21 @@ export default function TrainingFormModal({ open, title, onClose }) {
                   placeholder="+91 9XXXXXXXXX"
                 />
                 {errors.contact && (
-                  <p className="text-xs text-red-500 mt-1">{errors.contact}</p>
+                  <p className="text-xs text-red-500">{errors.contact}</p>
                 )}
               </div>
 
               <div>
-                <label className="text-sm font-medium">Training Type *</label>
-                <select
+                <label className="text-sm font-medium">Training Type</label>
+                <input
                   value={form.trainingType}
-                  onChange={(e) =>
-                    setForm({ ...form, trainingType: e.target.value })
-                  }
-                  className={`mt-1 w-full px-3 py-2 border rounded ${
-                    errors.trainingType ? 'border-red-500' : 'border-gray-300'
-                  }`}
-                >
-                  <option value="">Select training type</option>
-                  <option value="Corporate Training">Corporate Training</option>
-                  <option value="In-person Training">In-person Training</option>
-                </select>
-                {errors.trainingType && (
-                  <p className="text-xs text-red-500 mt-1">
-                    {errors.trainingType}
-                  </p>
-                )}
+                  disabled
+                  className="mt-1 w-full px-3 py-2 border rounded bg-gray-100"
+                />
               </div>
             </div>
 
+            {/* City + Country */}
             <div className="grid sm:grid-cols-2 gap-3">
               <div>
                 <label className="text-sm font-medium">City *</label>
@@ -160,10 +162,9 @@ export default function TrainingFormModal({ open, title, onClose }) {
                   className={`mt-1 w-full px-3 py-2 border rounded ${
                     errors.city ? 'border-red-500' : 'border-gray-300'
                   }`}
-                  placeholder="Your city"
                 />
                 {errors.city && (
-                  <p className="text-xs text-red-500 mt-1">{errors.city}</p>
+                  <p className="text-xs text-red-500">{errors.city}</p>
                 )}
               </div>
 
@@ -177,25 +178,26 @@ export default function TrainingFormModal({ open, title, onClose }) {
                   className={`mt-1 w-full px-3 py-2 border rounded ${
                     errors.country ? 'border-red-500' : 'border-gray-300'
                   }`}
-                  placeholder="Country"
                 />
                 {errors.country && (
-                  <p className="text-xs text-red-500 mt-1">{errors.country}</p>
+                  <p className="text-xs text-red-500">{errors.country}</p>
                 )}
               </div>
             </div>
 
+            {/* Message */}
             <div>
-              <label className="text-sm font-medium">Detailed message</label>
+              <label className="text-sm font-medium">Detailed Message</label>
               <textarea
+                rows={4}
                 value={form.message}
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
-                rows={4}
                 className="mt-1 w-full px-3 py-2 border rounded border-gray-300"
-                placeholder="Write details for us (optional)"
+                placeholder="Write details (optional)"
               />
             </div>
 
+            {/* Buttons */}
             <div className="flex justify-end gap-3 mt-2">
               <button
                 type="button"
@@ -206,9 +208,10 @@ export default function TrainingFormModal({ open, title, onClose }) {
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-600 text-white rounded"
+                disabled={loading}
+                className="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
               >
-                Submit
+                {loading ? 'Submitting...' : 'Submit'}
               </button>
             </div>
           </form>

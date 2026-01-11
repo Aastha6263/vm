@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import axios from 'axios';
 import { Mail, Phone, MapPin, HelpCircle } from 'lucide-react';
 
 /* ================= INITIAL STATE ================= */
@@ -73,16 +74,38 @@ const InfoRow = ({ icon: Icon, title, text, href }) => (
 
 export default function Contact() {
   const [form, setForm] = useState(INITIAL_STATE);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.table(form);
-    setForm(INITIAL_STATE);
+
+    if (
+      !form.name ||
+      !form.contact ||
+      !form.city ||
+      !form.country ||
+      !form.trainingType
+    ) {
+      alert('Please fill all mandatory fields');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await axios.post('http://localhost:5000/api/contact/submit', form);
+      alert('Message sent successfully!');
+      setForm(INITIAL_STATE);
+    } catch (error) {
+      console.error('API Error:', error);
+      alert('Failed to send message. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -104,7 +127,6 @@ export default function Contact() {
           <SectionTitle icon={Mail} title="Contact Us" />
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* NAME (REQUIRED) */}
             <InputField
               label="Name"
               name="name"
@@ -113,7 +135,6 @@ export default function Contact() {
               required
             />
 
-            {/* EMAIL (NOT REQUIRED) */}
             <InputField
               label="Email"
               type="email"
@@ -122,7 +143,6 @@ export default function Contact() {
               onChange={handleChange}
             />
 
-            {/* CONTACT NO (REQUIRED) */}
             <InputField
               label="Contact No"
               name="contact"
@@ -131,7 +151,6 @@ export default function Contact() {
               required
             />
 
-            {/* TRAINING TYPE (REQUIRED) */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Training Type <span className="text-red-500">*</span>
@@ -149,7 +168,6 @@ export default function Contact() {
               </select>
             </div>
 
-            {/* CITY (REQUIRED) */}
             <InputField
               label="City"
               name="city"
@@ -158,7 +176,6 @@ export default function Contact() {
               required
             />
 
-            {/* COUNTRY (REQUIRED) */}
             <InputField
               label="Country"
               name="country"
@@ -167,7 +184,6 @@ export default function Contact() {
               required
             />
 
-            {/* MESSAGE (NOT REQUIRED) */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Detailed message for us
@@ -181,8 +197,11 @@ export default function Contact() {
               />
             </div>
 
-            <button className="w-full rounded bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700 transition">
-              Send Message
+            <button
+              disabled={loading}
+              className="w-full rounded bg-blue-600 py-2 font-semibold text-white hover:bg-blue-700 transition disabled:opacity-50"
+            >
+              {loading ? 'Sending...' : 'Send Message'}
             </button>
           </form>
         </div>
@@ -219,7 +238,6 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* READY TO GET STARTED */}
           <div className="rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white shadow">
             <h3 className="mb-2 flex items-center gap-2 font-semibold">
               <HelpCircle size={16} /> Ready to Get Started?

@@ -5,7 +5,7 @@ export const instructors = [
     role: 'Senior UX Design Instructor',
     skills: 'User Experience, Design Thinking',
     exp: '12+ years experience',
-    img: 'https://randomuser.me/api/portraits/men/32.jpg',
+    img: '/image/industories/Michael Chen.png',
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ export const instructors = [
     role: 'Full Stack Development Lead',
     skills: 'React, Node.js, Python',
     exp: '10+ years experience',
-    img: 'https://randomuser.me/api/portraits/women/44.jpg',
+    img: '/image/industories/Emily Rodriguez.png',
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ export const instructors = [
     role: 'Game Development Expert',
     skills: 'Unity, Unreal Engine, C#',
     exp: '11+ years experience',
-    img: 'https://randomuser.me/api/portraits/women/65.jpg',
+    img: '/image/industories/girl1.png',
   },
   {
     id: 4,
@@ -29,7 +29,7 @@ export const instructors = [
     role: 'Salesforce Solution Architect',
     skills: 'Salesforce, CRM, Automation',
     exp: '9+ years experience',
-    img: 'https://randomuser.me/api/portraits/men/50.jpg',
+    img: '/image/industories/girl2.png',
   },
   {
     id: 5,
@@ -37,7 +37,7 @@ export const instructors = [
     role: 'Cloud DevOps Engineer',
     skills: 'AWS, Docker, Kubernetes',
     exp: '8+ years experience',
-    img: 'https://randomuser.me/api/portraits/men/76.jpg',
+    img: '/image/industories/boy1.png',
   },
   {
     id: 6,
@@ -45,7 +45,7 @@ export const instructors = [
     role: 'Digital Marketing Strategist',
     skills: 'SEO, PPC, Analytics',
     exp: '7+ years experience',
-    img: 'https://randomuser.me/api/portraits/women/50.jpg',
+    img: '/image/industories/girl3.png',
   },
   {
     id: 7,
@@ -53,7 +53,7 @@ export const instructors = [
     role: 'Data Science Lead',
     skills: 'Python, ML, AI',
     exp: '10+ years experience',
-    img: 'https://randomuser.me/api/portraits/men/55.jpg',
+    img: '/image/industories/boy2.png',
   },
   {
     id: 8,

@@ -127,7 +127,7 @@ export default function TrustedBy() {
             {/* Map Card */}
             <div className="relative max-w-5xl mx-auto">
               <div className="absolute inset-0 bg-black/10 rounded-2xl blur-xl" />
-              <div className="relative bg-white rounded-2xl p-6 shadow-2xl">
+              <div className="relative bg-white rounded-2xl p-1 shadow-2xl">
                 <img
                   src="/image/world.jpeg"
                   alt="Global Reach Map"
