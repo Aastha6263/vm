@@ -13,7 +13,7 @@ import { useScroll } from '../context/ScrollContext';
 
 export default function Home() {
   const {
-    // courseRef,
+    topRef,
     servicesRef,
     careersRef,
     industriesRef,
@@ -22,7 +22,7 @@ export default function Home() {
   } = useScroll();
 
   return (
-    <>
+    <div ref={topRef}>
       <Header />
       <StaticBar />
       <HeroSection />
@@ -47,6 +47,6 @@ export default function Home() {
       </section>
 
       <Footer />
-    </>
+    </div>
   );
 }

@@ -8,6 +8,7 @@ export function ScrollProvider({ children }) {
   const industriesRef = useRef(null);
   const testimonialsRef = useRef(null);
   const contactRef = useRef(null);
+  const topRef = useRef(null);
 
   const scrollTo = (ref) => {
     if (!ref?.current) return;
@@ -26,6 +27,7 @@ export function ScrollProvider({ children }) {
         industriesRef,
         testimonialsRef,
         contactRef,
+        topRef,
         scrollTo,
       }}
     >

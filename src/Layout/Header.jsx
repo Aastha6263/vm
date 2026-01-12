@@ -1,13 +1,22 @@
 import { useState } from 'react';
 import { NavLink, Link, useNavigate, useLocation } from 'react-router-dom';
-import { Menu } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useScroll } from '../context/ScrollContext';
 
 export default function Header() {
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [courseOpen, setCourseOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    navigate('/');
+    window.location.reload(); // refresh header state
+  };
+
   const {
+    topRef,
     careersRef,
     servicesRef,
     industriesRef,
@@ -18,6 +27,11 @@ export default function Header() {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const token = localStorage.getItem('token');
+  const isLoggedIn = !!token;
+  const role = localStorage.getItem('role');
+  const isAdmin = role === 'admin';
+  isAdmin === true;
 
   /* ================== COURSE CLICK ================== */
   const goToCourse = (course) => {
@@ -135,7 +149,7 @@ export default function Header() {
   ];
 
   const navItems = [
-    { label: 'Home', to: '/' },
+    { label: 'Home', scroll: true },
     { label: 'Courses', dropdown: true },
     { label: 'Industries', scroll: true },
     { label: 'Services', scroll: true },
@@ -144,6 +158,7 @@ export default function Header() {
   ];
 
   const getRef = (label) => {
+    if (label === 'Home') return topRef;
     if (label === 'Industries') return industriesRef;
     if (label === 'Services') return servicesRef;
     if (label === 'Careers') return careersRef;
@@ -172,13 +187,13 @@ export default function Header() {
           </Link>
 
           {/* DESKTOP NAV */}
-          <nav className="hidden md:flex gap-6 ml-6 relative">
+          <nav className="hidden md:flex gap-8 ml-8 relative text-[15px] lg:text-[16px] font-semibold">
             {navItems.map((item) =>
               item.dropdown ? (
                 <div key={item.label} className="relative">
                   <button
                     onClick={() => setCourseOpen(!courseOpen)}
-                    className="text-sm font-medium text-gray-700 hover:text-blue-600"
+                    className="text-lg text-gray-800 hover:text-blue-600 font-semibold tracking-wide"
                   >
                     Courses +
                   </button>
@@ -219,7 +234,7 @@ export default function Header() {
                 <button
                   key={item.label}
                   onClick={() => handleScroll(getRef(item.label))}
-                  className="text-sm font-medium text-gray-700 hover:text-blue-600"
+                  className="text-lg font-semibold text-gray-800 hover:text-blue-600"
                 >
                   {item.label}
                 </button>
@@ -227,7 +242,7 @@ export default function Header() {
                 <NavLink
                   key={item.to}
                   to={item.to}
-                  className="text-sm font-medium text-gray-700 hover:text-blue-600"
+                  className="text-lg font-semibold text-gray-800 hover:text-blue-600"
                 >
                   {item.label}
                 </NavLink>
@@ -236,7 +251,26 @@ export default function Header() {
           </nav>
 
           {/* RIGHT SIDE */}
-          <div className="ml-auto flex gap-4">
+          <div className="ml-auto flex gap-4 items-center">
+            {/* ADMIN BUTTONS */}
+            {isAdmin && (
+              <>
+                <Link
+                  to="/admin/add-course"
+                  className="hidden md:block bg-green-600 text-white px-3 py-1.5 rounded"
+                >
+                  + Add Course
+                </Link>
+
+                <Link
+                  to="/admin/add-instructor"
+                  className="hidden md:block bg-purple-600 text-white px-3 py-1.5 rounded"
+                >
+                  + Add Instructor
+                </Link>
+              </>
+            )}
+
             <button
               onClick={() => handleScroll(contactRef)}
               className="hidden md:block bg-blue-600 text-white px-4 py-1.5 rounded"
@@ -244,19 +278,142 @@ export default function Header() {
               Contact
             </button>
 
-            <Link
-              to="/login"
-              className="hidden md:block border border-blue-600 text-blue-600 px-4 py-1.5 rounded"
-            >
-              Login
-            </Link>
-
-            <button className="md:hidden">
-              <Menu size={22} />
-            </button>
+            {!isLoggedIn ? (
+              <Link
+                to="/login"
+                className="hidden md:block border border-blue-600 text-blue-600 px-4 py-1.5 rounded"
+              >
+                Login
+              </Link>
+            ) : (
+              <button
+                onClick={handleLogout}
+                className="hidden md:block border border-blue-600 text-blue-600 px-4 py-1.5 rounded"
+              >
+                Logout
+              </button>
+            )}
           </div>
         </div>
       </div>
+
+      {/* ===== LEFT SIDE MOBILE DRAWER ===== */}
+      {mobileOpen && (
+        <>
+          <div
+            className="fixed inset-0 bg-black/40 z-40"
+            onClick={() => setMobileOpen(false)}
+          ></div>
+
+          <div className="fixed top-0 left-0 h-full w-[260px] bg-white shadow-xl z-50 p-4 animate-slideIn">
+            <div className="flex justify-between items-center mb-4 border-b pb-3">
+              <img src="/image/vmss.png" className="h-10" />
+              <X
+                onClick={() => setMobileOpen(false)}
+                className="cursor-pointer"
+              />
+            </div>
+
+            <div className="flex flex-col gap-4 text-sm font-medium text-left items-start">
+              <NavLink to="/" onClick={() => setMobileOpen(false)}>
+                Home
+              </NavLink>
+
+              <div>Courses</div>
+
+              <button
+                onClick={() => {
+                  handleScroll(industriesRef);
+                  setMobileOpen(false);
+                }}
+              >
+                Industries
+              </button>
+
+              <button
+                onClick={() => {
+                  handleScroll(servicesRef);
+                  setMobileOpen(false);
+                }}
+              >
+                Services
+              </button>
+
+              <button
+                onClick={() => {
+                  handleScroll(careersRef);
+                  setMobileOpen(false);
+                }}
+              >
+                Careers
+              </button>
+
+              <button
+                onClick={() => {
+                  handleScroll(testimonialsRef);
+                  setMobileOpen(false);
+                }}
+              >
+                About Us
+              </button>
+
+              <button
+                onClick={() => {
+                  handleScroll(contactRef);
+                  setMobileOpen(false);
+                }}
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-800 
+             text-white py-2.5 rounded-lg 
+             font-semibold tracking-wide 
+             shadow-md hover:shadow-lg 
+             active:scale-95 transition-all duration-200"
+              >
+                Contact
+              </button>
+
+              {isAdmin && (
+                <>
+                  <Link
+                    to="/admin/add-course"
+                    onClick={() => setMobileOpen(false)}
+                    className="w-full bg-green-600 text-white py-2 rounded text-center"
+                  >
+                    + Add Course
+                  </Link>
+
+                  <Link
+                    to="/admin/add-instructor"
+                    onClick={() => setMobileOpen(false)}
+                    className="w-full bg-purple-600 text-white py-2 rounded text-center"
+                  >
+                    + Add Instructor
+                  </Link>
+                </>
+              )}
+
+              {!isLoggedIn ? (
+                <Link
+                  to="/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="border border-blue-600 text-blue-600 py-2 rounded text-center w-full"
+                >
+                  Login
+                </Link>
+              ) : (
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setMobileOpen(false);
+                  }}
+                  className="border border-red-500 text-red-500 py-2 rounded w-full"
+                >
+                  Logout
+                </button>
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </header>
   );
 }

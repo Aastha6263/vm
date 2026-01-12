@@ -6,6 +6,8 @@ const Home = lazy(() => import('../pages/Home'));
 const Login = lazy(() => import('../pages/Login'));
 const SearchResults = lazy(() => import('../pages/SearchResults'));
 import CourseDetails from '../pages/CourseDetails';
+import AddCourse from '../pages/AddCourse';
+import AddInstructor from '../pages/AddInstructor';
 
 /* ================= LOADER ================= */
 const PageLoader = () => (
@@ -22,6 +24,8 @@ export default function AppRoutes() {
         <Route path="/course/:courseName" element={<CourseDetails />} />
         <Route path="/login" element={<Login />} />
         <Route path="/search" element={<SearchResults />} />
+        <Route path="/admin/add-course" element={<AddCourse />} />
+        <Route path="/admin/add-instructor" element={<AddInstructor />} />
       </Routes>
     </Suspense>
   );
