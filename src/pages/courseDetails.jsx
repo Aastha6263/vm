@@ -4,28 +4,92 @@ import Header from '../Layout/Header';
 import Footer from '../Layout/Footer';
 
 const courses = {
+  // Programming
   c: 'C Programming',
-  net: '.NET Framework',
+  'c-sharp': 'C# Programming',
+  net: '.NET',
+  perl: 'Perl',
+
+  // Dev & Web
   python: 'Python Programming',
   java: 'Java Development',
   javascript: 'JavaScript',
-  'aws-cloud': 'AWS Cloud Training',
+
+  // UI & Markup
+  html: 'HTML',
+  css: 'CSS',
+
+  sql: 'SQL',
+  typescript: 'TypeScript',
+  php: 'PHP',
+  swift: 'Swift',
+  dart: 'Dart',
+  scala: 'Scala',
+  go: 'Go Programming',
+  kotlin: 'Kotlin',
+  rust: 'Rust',
+  r: 'R Programming',
+
+  // Cloud
+  'aws-cloud': 'AWS Cloud',
   'azure-cloud': 'Microsoft Azure',
   'google-cloud': 'Google Cloud',
-  'azure-devops': 'Azure DevOps',
+  'oracle-cloud': 'Oracle Cloud',
   kubernetes: 'Kubernetes',
   terraform: 'Terraform',
-  'cyber-security': 'Cyber Security',
-  'ethical-hacking': 'Ethical Hacking',
-  rpa: 'Robotic Process Automation',
-  powershell: 'PowerShell',
+  'cloud-security': 'Cloud Security',
+  'azure-devops': 'Azure DevOps',
+
+  // Infrastructure
+  citrix: 'Citrix',
+  vmware: 'VMware',
+  'windows-server': 'Windows Server',
   'linux-administration': 'Linux Administration',
-  'servicenow-developer': 'ServiceNow Developer',
+  'networking-fundamentals': 'Networking Fundamentals',
+  'azure-active-directory': 'Azure Active Directory',
+
+  // Automation
+  powershell: 'PowerShell',
+  'python-automation': 'Python Automation',
+  'shell-scripting': 'Shell Scripting',
+  rpa: 'Robotic Process Automation',
+  ansible: 'Ansible',
+  'ci-cd-pipelines': 'CI/CD Pipelines',
+
+  // CRM
+  salesforce: 'Salesforce',
+  'microsoft-dynamics': 'Microsoft Dynamics',
+  'oracle-crm': 'Oracle CRM',
+  'zoho-crm': 'Zoho CRM',
+  hubspot: 'HubSpot',
+  creatio: 'Creatio',
+
+  // ServiceNow
+  itsm: 'ITSM',
+  hrsd: 'HRSD',
+  sam: 'SAM',
+  itom: 'ITOM',
+  integration: 'Integration',
+  cmdb: 'CMDB',
+  'service-now-developer': 'ServiceNow Developer',
+
+  // Cyber
+  splunk: 'Splunk',
+  siem: 'SIEM',
+  soc: 'SOC',
+  'ethical-hacking': 'Ethical Hacking',
+  'network-security': 'Network Security',
+
+  // CyberArk
+  cyberark: 'CyberArk Vault',
+  pam: 'Privileged Access Management',
+  'endpoint-security': 'Endpoint Privilege Security',
 };
 
 export default function CourseDetails() {
   const { courseName } = useParams();
-  const courseTitle = courses[courseName];
+  const courseTitle = courses[courseName?.toLowerCase()];
+
   const [showContact, setShowContact] = useState(false);
 
   if (!courseTitle) {

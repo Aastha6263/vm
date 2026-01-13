@@ -34,11 +34,23 @@ export default function Header() {
   isAdmin === true;
 
   /* ================== COURSE CLICK ================== */
+  const makeSlug = (name) => {
+    return name
+      .toLowerCase()
+      .replace(/c#/g, 'c-sharp')
+      .replace(/\.net/g, 'net')
+      .replace(/ci\/cd/g, 'ci-cd')
+      .replace(/&/g, 'and')
+      .replace(/[^a-z0-9 ]/g, '')
+      .replace(/\s+/g, '-')
+      .trim();
+  };
+
   const goToCourse = (course) => {
     setCourseOpen(false);
     setActiveCategory(null);
 
-    const slug = course.toLowerCase().replace(/\s+/g, '-');
+    const slug = makeSlug(course);
     navigate(`/course/${slug}`);
   };
 
@@ -48,7 +60,6 @@ export default function Header() {
       title: 'Modern Programming Languages',
       items: [
         'C',
-        'C#',
         'Python',
         '.NET',
         'Java',
@@ -100,7 +111,6 @@ export default function Header() {
         'Shell Scripting',
         'RPA',
         'Ansible',
-        'CI/CD Pipelines',
       ],
     },
     {
@@ -116,15 +126,7 @@ export default function Header() {
     },
     {
       title: 'ServiceNow',
-      items: [
-        'ITSM',
-        'HRSD',
-        'SAM',
-        'ITOM',
-        'Integration',
-        'CMDB',
-        'ServiceNow Developer',
-      ],
+      items: ['ITSM', 'HRSD', 'SAM', 'ITOM', 'Integration', 'CMDB'],
     },
     {
       title: 'Cyber Security',
@@ -135,15 +137,6 @@ export default function Header() {
         'Ethical Hacking',
         'Network Security',
         'Cloud Security',
-      ],
-    },
-    {
-      title: 'CyberArk',
-      items: [
-        'Privileged Access Management',
-        'CyberArk Vault',
-        'PAM Administration',
-        'Endpoint Privilege Security',
       ],
     },
   ];
@@ -180,11 +173,18 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b">
       <div className="w-full px-4">
-        <div className="h-16 flex items-center gap-6">
+        <div className="h-16 flex items-center w-full">
           {/* LOGO */}
           <Link to="/">
             <img src="/image/vmss.png" className="h-12" />
           </Link>
+
+          <button
+            onClick={() => setMobileOpen(true)}
+            className="md:hidden ml-auto text-gray-800"
+          >
+            <Menu size={28} />
+          </button>
 
           {/* DESKTOP NAV */}
           <nav className="hidden md:flex gap-8 ml-8 relative text-[15px] lg:text-[16px] font-semibold">
@@ -251,7 +251,7 @@ export default function Header() {
           </nav>
 
           {/* RIGHT SIDE */}
-          <div className="ml-auto flex gap-4 items-center">
+          <div className="hidden md:flex ml-auto gap-4 items-center">
             {/* ADMIN BUTTONS */}
             {isAdmin && (
               <>

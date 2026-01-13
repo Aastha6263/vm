@@ -1,12 +1,25 @@
 import { useState } from 'react';
 import TrainingFormModal from './TrainingFormModal';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useScroll } from '../context/ScrollContext';
 
 export default function HeroSection() {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
   const [query, setQuery] = useState('');
+  const [notFound, setNotFound] = useState(false);
+
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const {
+    servicesRef,
+    careersRef,
+    industriesRef,
+    testimonialsRef,
+    contactRef,
+    scrollTo,
+  } = useScroll();
 
   const options = [
     'Become an Instructor',
@@ -19,9 +32,100 @@ export default function HeroSection() {
     setOpen(true);
   };
 
+  /* 🔥 WEBSITE-WIDE SEARCH */
   const handleSearch = () => {
     if (!query.trim()) return;
-    navigate(`/search?q=${encodeURIComponent(query)}`);
+
+    const q = query.toLowerCase();
+
+    // SECTION KEYWORDS
+    const pages = {
+      services: servicesRef,
+      service: servicesRef,
+      training: servicesRef,
+      course: servicesRef,
+
+      career: careersRef,
+      job: careersRef,
+      instructor: careersRef,
+
+      industry: industriesRef,
+      industries: industriesRef,
+
+      review: testimonialsRef,
+      testimonials: testimonialsRef,
+
+      contact: contactRef,
+      support: contactRef,
+      help: contactRef,
+    };
+
+    // ALL COURSES / TECH WORDS ON YOUR WEBSITE
+    const courseKeywords = [
+      'aws',
+      'azure',
+      'google cloud',
+      'cloud',
+      'devops',
+      'kubernetes',
+      'terraform',
+      'python',
+      'java',
+      'c',
+      'c++',
+      '.net',
+      'javascript',
+      'html',
+      'css',
+      'sql',
+      'power bi',
+      'linux',
+      'windows',
+      'cyber security',
+      'ethical hacking',
+      'rpa',
+      'salesforce',
+      'zoho',
+      'servicenow',
+      'splunk',
+      'siem',
+      'soc',
+    ];
+
+    // 1️⃣ First check section keywords
+    const foundSection = Object.keys(pages).find((key) => q.includes(key));
+
+    if (foundSection) {
+      setNotFound(false);
+
+      if (location.pathname !== '/') {
+        navigate('/');
+        setTimeout(() => scrollTo(pages[foundSection]), 500);
+      } else {
+        scrollTo(pages[foundSection]);
+      }
+      return;
+    }
+
+    // 2️⃣ Then check courses & technologies
+    const foundCourse = courseKeywords.find((course) => q.includes(course));
+
+    if (foundCourse) {
+      setNotFound(false);
+
+      // all courses live inside Services section
+      if (location.pathname !== '/') {
+        navigate('/');
+        setTimeout(() => scrollTo(servicesRef), 500);
+      } else {
+        scrollTo(servicesRef);
+      }
+      return;
+    }
+
+    // 3️⃣ If nothing matched → Not Found
+    setNotFound(true);
+    setTimeout(() => setNotFound(false), 3000);
   };
 
   return (
@@ -35,7 +139,6 @@ export default function HeroSection() {
 
       {/* CONTENT */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center text-white px-4 py-20">
-        {/* TITLE */}
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-widest animate-softUp">
           VMSS TECHNOLOGIES
         </h1>
@@ -62,6 +165,12 @@ export default function HeroSection() {
               Search
             </button>
           </div>
+
+          {notFound && (
+            <p className="mt-2 text-red-400 font-semibold">
+              No matching section found. Showing search results...
+            </p>
+          )}
         </div>
 
         {/* OPTIONS */}
@@ -87,7 +196,6 @@ export default function HeroSection() {
         onClose={() => setOpen(false)}
       />
 
-      {/* ANIMATION */}
       <style>
         {`
         @keyframes softUp {
