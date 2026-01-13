@@ -32,13 +32,12 @@ export default function HeroSection() {
     setOpen(true);
   };
 
-  /* 🔥 WEBSITE-WIDE SEARCH */
+  /* 🔍 STRICT WEBSITE SEARCH */
   const handleSearch = () => {
     if (!query.trim()) return;
 
     const q = query.toLowerCase();
 
-    // SECTION KEYWORDS
     const pages = {
       services: servicesRef,
       service: servicesRef,
@@ -60,7 +59,6 @@ export default function HeroSection() {
       help: contactRef,
     };
 
-    // ALL COURSES / TECH WORDS ON YOUR WEBSITE
     const courseKeywords = [
       'aws',
       'azure',
@@ -92,12 +90,10 @@ export default function HeroSection() {
       'soc',
     ];
 
-    // 1️⃣ First check section keywords
+    // 1️⃣ Section match
     const foundSection = Object.keys(pages).find((key) => q.includes(key));
-
     if (foundSection) {
       setNotFound(false);
-
       if (location.pathname !== '/') {
         navigate('/');
         setTimeout(() => scrollTo(pages[foundSection]), 500);
@@ -107,13 +103,10 @@ export default function HeroSection() {
       return;
     }
 
-    // 2️⃣ Then check courses & technologies
+    // 2️⃣ Course match
     const foundCourse = courseKeywords.find((course) => q.includes(course));
-
     if (foundCourse) {
       setNotFound(false);
-
-      // all courses live inside Services section
       if (location.pathname !== '/') {
         navigate('/');
         setTimeout(() => scrollTo(servicesRef), 500);
@@ -123,7 +116,7 @@ export default function HeroSection() {
       return;
     }
 
-    // 3️⃣ If nothing matched → Not Found
+    // 3️⃣ Nothing matched → NOT FOUND
     setNotFound(true);
     setTimeout(() => setNotFound(false), 3000);
   };
@@ -168,7 +161,7 @@ export default function HeroSection() {
 
           {notFound && (
             <p className="mt-2 text-red-400 font-semibold">
-              No matching section found. Showing search results...
+              ❌ No matching content found on this website
             </p>
           )}
         </div>
@@ -196,27 +189,19 @@ export default function HeroSection() {
         onClose={() => setOpen(false)}
       />
 
+      {/* ANIMATION */}
       <style>
         {`
-@keyframes zoomPulse {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.12);
-    opacity: 0.9;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
+        @keyframes zoomPulse {
+          0% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.12); opacity: 0.9; }
+          100% { transform: scale(1); opacity: 1; }
+        }
 
-.animate-zoomPulse {
-  animation: zoomPulse 3.5s ease-in-out infinite;
-}
-`}
+        .animate-zoomPulse {
+          animation: zoomPulse 3.5s ease-in-out infinite;
+        }
+        `}
       </style>
     </section>
   );
