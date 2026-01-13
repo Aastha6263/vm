@@ -139,7 +139,7 @@ export default function HeroSection() {
 
       {/* CONTENT */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center text-white px-4 py-20">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-widest animate-softUp">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-widest animate-zoomPulse">
           VMSS TECHNOLOGIES
         </h1>
 
@@ -198,15 +198,25 @@ export default function HeroSection() {
 
       <style>
         {`
-        @keyframes softUp {
-          0% { transform: translateY(10px); }
-          50% { transform: translateY(0px); }
-          100% { transform: translateY(-10px); }
-        }
-        .animate-softUp {
-          animation: softUp 4s ease-in-out infinite;
-        }
-        `}
+@keyframes zoomPulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-zoomPulse {
+  animation: zoomPulse 3.5s ease-in-out infinite;
+}
+`}
       </style>
     </section>
   );
